@@ -1,6 +1,6 @@
-# MAKE PROJECT TEMPLATE
+# Make Project Template
 
-The purpose of this template is to be a starter point for new projects that intend to use 'GNU Make' for build automation, 'clangd', for linting and formatting, and cppcheck for static C/C++ code analysis.
+The purpose of this template is to be a starter point for new projects that intend to use 'GNU Make' for build automation, 'clangd' for linting and formatting, and cppcheck for static C/C++ code analysis.
 
 ## Getting Started
 
@@ -18,9 +18,9 @@ The purpose of this template is to be a starter point for new projects that inte
 
 ## Troubleshooting
 
-Any advise for common problems or issues.
+TODO
 ```
-command to run if program contains helper info
+command to run
 ```
 
 ## Authors
@@ -29,8 +29,7 @@ command to run if program contains helper info
 
 ## Version History
 
-* 0.1
-    * Initial Release
+* TODO
 
 ## License
 
