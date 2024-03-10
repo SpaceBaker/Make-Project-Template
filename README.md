@@ -6,22 +6,23 @@ The purpose of this template is to be a starter point for new projects that inte
 
 ### Dependencies
 
-* Assumes that you are working in a linux developement environement (Native, VM, WSL or Container)
+Assumes that you are working in a linux developement environement (Native, VM, WSL or Container)
 * GNU Make 4.3 or later
 * clangd 17.0.3 or later
 * cppcheck 2.13.0 or later
+    * GCC (g++) 5.1 or later
+    * cmake 3.5 or later
+* compiledb
+    * python 2.7 or 3.6
+    * pip 22.0.2 or later
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+TODO
 
 ## Troubleshooting
 
 TODO
-```
-command to run
-```
 
 ## Authors
 
