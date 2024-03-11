@@ -31,6 +31,7 @@ LD		= $(CC_DIR)/avr-ld
 OBJCOPY = $(CC_DIR)/avr-objcopy
 OBJDUMP = $(CC_DIR)/avr-objdump
 SIZE	= $(CC_DIR)/avr-size
+CPPCK	= $(HOME)/tools/cppcheck-2.13.0/build/bin/cppcheck
 # PROG	= $(HOME)/tools/avrdude/v7.1/avrdude
 
 # List source files here
@@ -65,6 +66,8 @@ CSTD = -std=gnu11
 # Comment the line to disable verbose output
 # VERB = -v
 
+#------------- cppcheck flags -------------
+CPPCK_FLAGS = --quiet --error-exitcode=1 --language=c --std=c11 --suppress=unusedFunction
 
 
 #---------------------------------------------------------------------------------
@@ -134,6 +137,12 @@ $(BIN_DIR)/$(TARGET).srec: $(BIN_DIR)/$(TARGET).elf
 #Reaf fuses
 # read_fuses:
 # 	$(PROG) $(VERB) -c usbasp -P usb -qq -p $(MCU) -b 115200 -U lfuse:r:-:h -U hfuse:r:-:h -U efuse:r:-:h
+
+#------------- Rules for cppcheck -------------
+.PHONY: cppcheck
+
+cppcheck: 
+	@$(CPPCK) $(CPPCK_FLAGS) -I $(INCS) $(SRCS)
 
 #------------- Other Rules -------------
 .PHONY: clean
