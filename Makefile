@@ -81,27 +81,28 @@ LDFLAGS = $(VERB) -mmcu=$(MCU) -Wl,-Map,$(BIN_DIR)/$(TARGET).map,--cref -N $(LIB
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 
-#------------- Rules for building elf -------------
-.PHONY: build rebuild
+#------------- Rules for building the elf file -------------
+.PHONY: all build elf
 
-rebuild: clean build
+all: elf hex srec lst
 
-build: $(BIN_DIR)/$(TARGET).elf lst hex srec
-	@echo Size of your elf file :
-	@$(SIZE) $<
-	@echo build done.
+build: elf lst
+
+elf: $(BIN_DIR)/$(TARGET).elf
 
 $(BIN_DIR)/$(TARGET).elf: $(OBJS)
 	@echo Linking $<
 	@mkdir -p $(@D)
 	$(CC) $(LDFLAGS) $^ -o $@
+	@echo Size of your elf file :
+	@$(SIZE) $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo Compiling $<
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-#------------- Rules for building listing file -------------
+#------------- Rules for building the listing file -------------
 .PHONY: lst
 
 lst: $(BIN_DIR)/$(TARGET).lst
@@ -110,27 +111,19 @@ $(BIN_DIR)/%.lst: $(BIN_DIR)/%.elf
 	@echo Listing $<
 	$(OBJDUMP) -h -S $< > $@
 
-#------------- Rules for converting to hex bin srec -------------
-.PHONY: hex bin srec
+#------------- Rules for converting to hex or srec format -------------
+.PHONY: hex srec
 
 hex:  $(BIN_DIR)/$(TARGET).hex
-bin:  $(BIN_DIR)/$(TARGET).bin
 srec: $(BIN_DIR)/$(TARGET).srec
 
 $(BIN_DIR)/$(TARGET).hex: $(BIN_DIR)/$(TARGET).elf
 	@echo Converting .elf to .hex
-	$(OBJCOPY) -j .text -j .data -O ihex $< $@
-#	$(SIZE) $@
-
-$(BIN_DIR)/$(TARGET).bin: $(BIN_DIR)/$(TARGET).elf
-	@echo Converting .elf to .bin
-	$(OBJCOPY) -j .text -j .data -O binary $< $@
-#	$(SIZE) $@
+	$(OBJCOPY) -O ihex $< $@
 
 $(BIN_DIR)/$(TARGET).srec: $(BIN_DIR)/$(TARGET).elf
 	@echo Converting .elf to .srec
-	$(OBJCOPY) -j .text -j .data -O srec $< $@
-#	$(SIZE) $@
+	$(OBJCOPY) -O srec $< $@
 
 #------------- Rules for avrdude (programmer) -------------
 # .PHONY: flash read_fuses
