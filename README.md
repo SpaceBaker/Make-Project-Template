@@ -1,6 +1,6 @@
 # Make Project Template
 
-The purpose of this template is to be a starter point for new projects that intend to use 'GNU Make' for build automation, 'clangd' for linting and formatting, and cppcheck for static C/C++ code analysis.
+The purpose of this template is to be a starter point for new projects that intend to use 'GNU Make' for build automation, 'clangd' for adding smart features to the text editor (namely VSCode), and cppcheck for static C/C++ code analysis.
 
 ## Getting Started
 
